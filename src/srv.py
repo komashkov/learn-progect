@@ -9,11 +9,11 @@ print(f"port = {PORT}")
 
 def get_page(query):
     path, qs = query.split("?") if '?' in query else [query, ""]
-    path = {
+    paths = {
         '/hello': hello,
         '/goodbye': goodbye,
         }
-    return path[path](qs)
+    return paths[path](qs)
 
 def hello(qs):
     print(qs)
@@ -28,17 +28,18 @@ def hello(qs):
                      """
 
 def goodbye(qs):
+    print(qs)
     hour = datetime.now().hour
     if hour < 6:
-        return "Good night!"
+        return f"Good night!"
     elif hour < 12:
-        return "Good morning!"
+        return f"Good morning!"
     elif hour < 18:
-        return "Good afternoon!"
+        return f"Good afternoon!"
     elif hour < 23:
-        return "Good evening!"
+        return f"Good evening!"
     else:
-        return "Good night!"
+        return f"Good night!"
 
 def get_name(qs):
     if 'name' in qs:
