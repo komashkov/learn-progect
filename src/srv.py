@@ -9,11 +9,11 @@ print(f"port = {PORT}")
 
 def get_page(query):
     path, qs = query.split("?") if '?' in query else [query, ""]
-    paths = {
+    path = {
         '/hello': hello,
         '/goodbye': goodbye,
         }
-    return paths[path](qs)
+    return path[path](qs)
 
 def hello(qs):
     print(qs)
