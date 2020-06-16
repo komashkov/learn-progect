@@ -31,6 +31,7 @@ def page_goodbye(qs):
             """
 
 
+
 def get_name(qs):
     if qs == "":
         return "anonymous"
