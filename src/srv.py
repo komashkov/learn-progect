@@ -26,7 +26,7 @@ def page_hello(qs):
         """
 
 def page_goodbye(qs):
-    qs = parse_qs(qs)
+    qs = parse_qs(qs) if qs != "" else ""
     time = get_bye(qs)
     return f"""
         {time}
