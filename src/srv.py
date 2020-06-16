@@ -16,7 +16,6 @@ def get_page(query):
         "/goodbye": page_goodbye, }
     return switcher[path](qs) if path in switcher else "no information"
 
-
 def page_hello(qs):
     qs = parse_qs(qs) if qs != "" else ""
     name = get_name(qs)
@@ -26,8 +25,8 @@ def page_hello(qs):
           You were born in {year}.
         """
 
-
 def page_goodbye(qs):
+    qs = parse_qs(qs) if qs != "" else ""
     return f"""
         {get_bye}
             """
@@ -56,7 +55,7 @@ def get_year(qs):
             return str(today - int(qs["age"][0]))
 
 
-def get_bye(hour):
+def get_bye():
     hour = datetime.now().hour
     if hour < 6:
         return "Good night"
