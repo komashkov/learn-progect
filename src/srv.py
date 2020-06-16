@@ -26,11 +26,11 @@ def page_hello(qs):
         """
 
 def page_goodbye(qs):
+    qs = parse_qs(qs)
+    time = get_bye(qs)
     return f"""
-        {get_bye}
+        {time}
             """
-
-
 
 def get_name(qs):
     if qs == "":
