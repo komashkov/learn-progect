@@ -9,28 +9,37 @@ print(f"PORT = {PORT}")
 now = datetime.now().year
 
 
-def get_page(query):
-    path, qs = query.split("?") if '?' in query else [query, ""]
+def get_page(self):
+    path, qs = self.path.split("?") if '?' in self.path else [self.path, ""]
     switcher = {
-        "/hello": page_hello,
-        "/goodbye": page_goodbye, }
+        "/hello": get_page_hello,
+        "/goodbye": get_page_goodbye,
+        #"/pages": get_page_about_me,
+       # "/pages/hobby": get_page_hobby,
+       # "/pages/job": get_page_hobby,
+        #"/pages/education": get_page_education,
+    }
     return switcher[path](qs) if path in switcher else "no information"
 
-def page_hello(qs):
-    qs = parse_qs(qs) if qs != "" else ""
+def get_page_hello(qs):
+    if qs != "":
+        qs = parse_qs(qs)
     name = get_name(qs)
     year = get_year(qs)
     return f"""
           Hello {name}! 
           You were born in {year}.
         """
+    self.respond(msg)
 
-def page_goodbye(qs):
-    qs = parse_qs(qs) if qs != "" else ""
-    time = get_bye(qs)
-    return f"""
+
+def get_page_goodbye(qs):
+    if qs != "":
+        qs = parse_qs(qs)
+    return msg = f"""
         {time}
             """
+    self.respond(msg)
 
 def get_name(qs):
     if qs == "":
@@ -41,7 +50,6 @@ def get_name(qs):
             return "anonymous"
         else:
             return qs["name"][0]
-
 
 def get_year(qs):
     if qs == "":
@@ -54,20 +62,15 @@ def get_year(qs):
             today = datetime.today().year
             return str(today - int(qs["age"][0]))
 
-
-def get_bye():
-    hour = datetime.now().hour
-    if hour < 6:
-        return "Good night"
-    elif hour < 12:
-        return "Good morning"
-    elif hour < 18:
-        return "Good afternoon"
-    elif hour < 23:
-        return "Good evening"
-    else:
-        return "Good night"
-
+#def resume(qs):
+    msg = """<html>
+    <head>
+    <title>Main page</title>
+    </head>
+    <body>
+    <h1>Hi! This is my page.</h1>
+    <h2>Links
+    """
 
 class MyHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
